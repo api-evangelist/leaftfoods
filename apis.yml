@@ -1,25 +1,147 @@
 aid: leaftfoods
-name: Leaftfoods
-description: Leaftfoods is a company surfaced as a portfolio company of khosla-ventures and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/leaftfoods.png
+name: Leaft Foods
+description: Leaft Foods is a New Zealand food-technology company, founded in 2019 by John Penno and Maury
+  Leyland Penno and headquartered in Rolleston in the Selwyn district near Christchurch, that extracts Rubisco
+  — the protein that drives photosynthesis and the most abundant protein on Earth — from green leafy crops
+  such as lucerne. Its proprietary platform turns leaves into a neutral-tasting, highly digestible protein
+  sold as the Leaft Blade consumer beverage, as a Rubisco protein isolate ingredient for food manufacturers,
+  and as an Alfalfa Protein Concentrate for pet nutrition. The company raised a US$15M Series A led by Khosla
+  Ventures. Its digital surface is a Shopify storefront that publishes a real agent-facing commerce API — a
+  Universal Commerce Protocol (UCP) discovery document, an MCP endpoint for catalog, cart and checkout, an
+  llms.txt / agents.md agent instruction set, and OpenID Connect discovery for customer accounts.
 url: https://raw.githubusercontent.com/api-evangelist/leaftfoods/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - khosla-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: agentic-commerce-surface
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Food
+- AgTech
+- Alternative Protein
+- Ingredients
+- Pet Nutrition
+- Agentic Commerce
+- Universal Commerce Protocol
+- MCP
+- Shopify
+- New Zealand
+apis:
+- aid: leaftfoods:ucp-commerce
+  name: Leaft Foods Universal Commerce Protocol (UCP) API
+  description: The agent-facing commerce API for the Leaft Foods storefront. The store implements the
+    Universal Commerce Protocol (ucp.dev) natively through Shopify, exposing a UCP merchant profile at
+    /.well-known/ucp and an MCP endpoint at /api/ucp/mcp that agents use to search the catalog, create a
+    cart, open and update a checkout, and complete a purchase. Completing payment requires contemporaneous
+    buyer approval. Read-only storefront JSON (products, collections, search, cart) is available without
+    authentication, and customer-account OAuth/OIDC is served from Shopify's authentication issuer.
+  humanURL: https://www.leaftfoods.com/llms.txt
+  baseURL: https://www.leaftfoods.com/api/ucp/mcp
+  tags:
+  - Agentic Commerce
+  - Universal Commerce Protocol
+  - MCP
+  - Commerce
+  - Checkout
+  - Catalog
+  properties:
+  - type: MCPServer
+    url: mcp/leaftfoods-mcp.yml
+  - type: LLMsTxt
+    url: llms/leaftfoods-llms.txt
+  - type: WellKnown
+    url: well-known/leaftfoods-well-known.yml
+  - type: Authentication
+    url: authentication/leaftfoods-authentication.yml
+  - type: OAuthScopes
+    url: scopes/leaftfoods-scopes.yml
+  - type: Conventions
+    url: conventions/leaftfoods-conventions.yml
+  - type: Conformance
+    url: conformance/leaftfoods-conformance.yml
+  - type: ErrorCatalog
+    url: errors/leaftfoods-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/leaftfoods-lifecycle.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Documentation
+    url: https://www.leaftfoods.com/llms.txt
+- aid: leaftfoods:leaftblade-ucp-commerce
+  name: Leaft Blade Universal Commerce Protocol (UCP) API
+  description: The agent-facing commerce API for leaftblade.com, the direct-to-consumer storefront for the
+    Leaft Blade protein beverage and a second Shopify shop operated by Leaft Foods (shop
+    leaft-lightgrove.myshopify.com). It implements the same Universal Commerce Protocol surface as the
+    corporate site — a merchant profile at /.well-known/ucp and an MCP endpoint for catalog, cart,
+    checkout, fulfillment, discount and order — but unlike the corporate store it serves a live product
+    catalog and additionally advertises Shop Pay as a payment handler. Agent instructions are published at
+    both /llms.txt and /agents.md.
+  humanURL: https://www.leaftblade.com/agents.md
+  baseURL: https://www.leaftblade.com/api/ucp/mcp
+  tags:
+  - Agentic Commerce
+  - Universal Commerce Protocol
+  - MCP
+  - Commerce
+  - Checkout
+  - Catalog
+  properties:
+  - type: MCPServer
+    url: mcp/leaftblade-mcp.yml
+  - type: LLMsTxt
+    url: llms/leaftblade-llms.txt
+  - type: WellKnown
+    url: well-known/leaftfoods-well-known.yml
+  - type: Documentation
+    url: https://www.leaftblade.com/agents.md
+  - type: TermsOfService
+    url: https://www.leaftblade.com/policies/terms-of-service
+  - type: PrivacyPolicy
+    url: https://www.leaftblade.com/policies/privacy-policy
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/leaftfoods-domain-security.yml
 - type: Website
   url: https://www.leaftfoods.com/
+- type: Blog
+  url: https://www.leaftfoods.com/blogs/news
+- type: BlogRSS
+  url: https://www.leaftfoods.com/blogs/news.atom
+- type: Support
+  url: https://www.leaftfoods.com/pages/contact
+- type: SignUp
+  url: https://www.leaftfoods.com/account/login
+- type: PrivacyPolicy
+  url: https://www.leaftfoods.com/policies/privacy-policy
+- type: LinkedIn
+  url: https://nz.linkedin.com/company/leaft-foods
+- type: Lifecycle
+  url: lifecycle/leaftfoods-lifecycle.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
