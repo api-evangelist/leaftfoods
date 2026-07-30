@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.leaftfoods.com/.well-known/openid-configuration
+docs: https://www.leaftfoods.com/.well-known/oauth-authorization-server
+name: Leaft Foods OAuth Scopes
+description: OAuth 2.0 / OpenID Connect scopes advertised by the authorization server discovered from the
+  Leaft Foods storefront host. The authorization server is Shopify's hosted customer-account issuer for
+  shop 95682920744; the scope list below is taken verbatim from scopes_supported in the discovery document.
+issuer: https://shopify.com/authentication/95682920744
+authorization_endpoint: https://shopify.com/authentication/95682920744/oauth/authorize
+token_endpoint: https://shopify.com/authentication/95682920744/oauth/token
+count: 4
+scopes:
+- name: openid
+  description: Standard OpenID Connect scope; requests an ID token identifying the signed-in customer.
+  standard: true
+- name: email
+  description: Standard OpenID Connect scope; releases the email and email_verified claims.
+  standard: true
+- name: customer-account-api:full
+  description: Full access to the Customer Account API for the authenticated customer — orders, addresses,
+    profile and subscription data belonging to that customer.
+  standard: false
+- name: customer-account-mcp-api:full
+  description: Full access to the customer-account MCP surface, allowing an agent acting for a signed-in
+    customer to operate on that customer's account over MCP.
+  standard: false
+notes:
+- The UCP storefront MCP endpoint at /api/ucp/mcp is a separate surface and is not gated by these scopes;
+  it gates on agent-profile discovery plus buyer approval at payment.
+- No Leaft Foods-specific (non-Shopify) scopes are published.

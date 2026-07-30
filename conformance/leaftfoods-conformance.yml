@@ -1,0 +1,67 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.leaftfoods.com/.well-known/ucp
+name: Leaft Foods Standards Conformance
+description: Cross-cutting standards the Leaft Foods agent-commerce surface does and does not conform to,
+  each asserted only where there is observable evidence on the provider's own hosts.
+standards:
+- id: ucp
+  name: Universal Commerce Protocol
+  conforms: true
+  version: '2026-04-08'
+  evidence: /.well-known/ucp returns a complete UCP merchant profile declaring supported_versions,
+    dev.ucp.shopping services over MCP transport, seven shopping capabilities and two payment handlers.
+    Retrieved 2026-07-19, HTTP 200.
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  evidence: POST https://www.leaftfoods.com/api/ucp/mcp speaks JSON-RPC 2.0 and is documented in llms.txt
+    as supporting the MCP tools/list method. Probe on 2026-07-19 returned a well-formed JSON-RPC error
+    object (HTTP 422, code -32001).
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: /.well-known/openid-configuration returns a valid discovery document (issuer, authorization,
+    token, jwks, end_session endpoints; response_types_supported [code]; RS256 id tokens). HTTP 200 on
+    2026-07-19.
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749) + Authorization Server Metadata (RFC 8414)
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns RFC 8414 metadata. grant_types_supported
+    includes authorization_code and refresh_token.
+- id: pkce
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: code_challenge_methods_supported = ["S256"] in the discovery document.
+- id: rfc9116
+  name: security.txt
+  conforms: false
+  evidence: GET /.well-known/security.txt returned HTTP 404 on 2026-07-19.
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: Errors are returned as JSON-RPC 2.0 error objects with a UCP-specific data payload, not
+    application/problem+json.
+- id: rfc9727
+  name: API Catalog (/.well-known/api-catalog)
+  conforms: false
+  evidence: GET /.well-known/api-catalog returned HTTP 404 on 2026-07-19.
+- id: llmstxt
+  name: llms.txt agent instructions
+  conforms: true
+  evidence: GET /llms.txt returns a real markdown agent-instruction document (4,170 bytes), mirrored at
+    /agents.md and referenced from robots.txt and sitemap_agentic_discovery.xml.
+- id: rate_limiting
+  name: Rate limiting with 429 signalling
+  conforms: true
+  evidence: llms.txt states the MCP endpoint is rate-limited per IP and instructs agents to back off on
+    429. Observed HTTP 429 on /pages/contact during probing on 2026-07-19.
+- id: idempotency
+  name: Idempotency keys
+  conforms: false
+  evidence: No idempotency-key header or retry-safety contract is published by the merchant.
+- id: pci
+  name: PCI DSS
+  conforms: false
+  evidence: Not asserted by the provider. Card data is handled by Shopify and Google Pay payment handlers declared in the UCP profile
+    (gateway "shopify"); Leaft Foods publishes no compliance attestation of its own.

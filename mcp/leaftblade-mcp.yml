@@ -1,0 +1,82 @@
+generated: '2026-07-19'
+method: searched
+source: https://leaftblade.com/.well-known/ucp
+name: Leaft Blade UCP MCP Server
+description: The second live UCP MCP server operated by Leaft Foods, serving the direct-to-consumer Leaft
+  Blade storefront at leaftblade.com (Shopify shop leaft-lightgrove.myshopify.com). Unlike the corporate
+  store it serves a live product catalog and advertises Shop Pay in addition to Google Pay and Shopify card.
+status: live
+transport: mcp
+endpoint: https://www.leaftblade.com/api/ucp/mcp
+canonical_endpoint: https://leaft-lightgrove.myshopify.com/api/ucp/mcp
+protocol: jsonrpc-2.0
+method_http: POST
+content_type: application/json
+discovery:
+  well_known: https://leaftblade.com/.well-known/ucp
+  agent_instructions: https://www.leaftblade.com/agents.md
+  llms_txt: https://www.leaftblade.com/llms.txt
+  openrpc_schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  specification: https://ucp.dev/2026-04-08/specification/overview/
+versions:
+  latest: '2026-04-08'
+  supported:
+  - '2026-04-08'
+  - '2026-01-23'
+merchant:
+  name: Leaft Blade
+  origin: www.leaftblade.com
+  google_pay_merchant_id: '16708973830884969730'
+tools:
+- name: search_catalog
+  method: searched
+  source: https://www.leaftblade.com/llms.txt
+  capability: dev.ucp.shopping.catalog.search
+- name: create_cart
+  method: searched
+  source: https://www.leaftblade.com/llms.txt
+  capability: dev.ucp.shopping.cart
+- name: create_checkout
+  method: searched
+  source: https://www.leaftblade.com/llms.txt
+  capability: dev.ucp.shopping.checkout
+- name: update_checkout
+  method: searched
+  source: https://www.leaftblade.com/llms.txt
+  capability: dev.ucp.shopping.fulfillment
+- name: complete_checkout
+  method: searched
+  source: https://www.leaftblade.com/llms.txt
+  capability: dev.ucp.shopping.checkout
+capabilities:
+- dev.ucp.shopping.cart
+- dev.ucp.shopping.checkout
+- dev.ucp.shopping.fulfillment
+- dev.ucp.shopping.discount
+- dev.ucp.shopping.order
+- dev.ucp.shopping.catalog.search
+- dev.ucp.shopping.catalog.lookup
+- dev.shopify.catalog
+payment_handlers:
+- com.google.pay
+- dev.shopify.card
+- dev.shopify.shop_pay
+catalog:
+  verified: '2026-07-19'
+  endpoint: https://leaftblade.com/products.json?limit=3
+  status: 200
+  product_count_sampled: 2
+  products:
+  - title: Leaft Blade
+    handle: leaft-blade-grab-and-go-fuel-shot
+  - title: Leaft Blade!
+    handle: us-leaft-blade-grab-and-go-fuel-shot
+policies:
+  privacy: https://www.leaftblade.com/policies/privacy-policy
+  terms_of_service: https://www.leaftblade.com/policies/terms-of-service
+  refund: https://www.leaftblade.com/policies/refund-policy
+  shipping: https://www.leaftblade.com/policies/shipping-policy
+rules:
+- Checkout requires explicit, contemporaneous human approval before payment is completed.
+- The MCP endpoint is rate-limited per IP; back off on 429 responses.
+- Pass context.address_country and context.currency for accurate pricing and availability.

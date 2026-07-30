@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: generated
+source: https://www.leaftfoods.com/llms.txt
+name: Leaft Foods Agent Skills
+description: Packaged Agent Skills for the Leaft Foods Universal Commerce Protocol surface. Steps are
+  grounded in the five tool names the store publishes in its own llms.txt and the capabilities declared in
+  its UCP merchant profile — no tool names or argument schemas were invented. Agents should confirm exact
+  schemas with the MCP tools/list method.
+api: leaftfoods:ucp-commerce
+skills:
+- name: leaftfoods-agent-purchase
+  file: leaftfoods-agent-purchase.md
+  description: End-to-end agentic purchase — discover, search, cart, checkout, fulfill, and complete only
+    after explicit buyer approval.
+  operations:
+  - search_catalog
+  - create_cart
+  - create_checkout
+  - update_checkout
+  - complete_checkout
+- name: leaftfoods-catalog-browse
+  file: leaftfoods-catalog-browse.md
+  description: Read-only catalog and store data via anonymous Shopify storefront JSON or the UCP catalog
+    capabilities.
+  operations:
+  - search_catalog
+provider_published_skills:
+- name: Shop skill
+  url: https://shop.app/SKILL.md
+  first_party: false
+  note: Not authored by Leaft Foods, but the store's llms.txt and robots.txt both explicitly recommend that
+    personal-shopping agents install this cross-store Shopify skill and transact via Shop Pay.

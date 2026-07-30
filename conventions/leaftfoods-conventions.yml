@@ -1,0 +1,91 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.leaftfoods.com/llms.txt
+docs: https://www.leaftfoods.com/robots.txt
+name: Leaft Foods API Conventions
+description: Cross-cutting runtime semantics for the Leaft Foods agent-facing commerce surface, taken from
+  the store's published llms.txt and robots.txt, its UCP merchant profile, and observed responses. Where a
+  convention is not published by Leaft Foods it is recorded as not_published rather than guessed.
+auth:
+  style: agent-profile-discovery + OIDC customer accounts
+  detail: See authentication/leaftfoods-authentication.yml. Read-only storefront JSON is anonymous. The UCP
+    MCP endpoint requires the calling agent to present a resolvable agent profile URI. Customer-account
+    access uses OAuth 2.0 authorization code + PKCE against Shopify's issuer.
+  cross_reference: authentication/leaftfoods-authentication.yml
+transport:
+  protocol: JSON-RPC 2.0 over HTTP POST
+  endpoint: https://www.leaftfoods.com/api/ucp/mcp
+  content_type: application/json
+  discovery: GET /.well-known/ucp
+idempotency:
+  published: false
+  note: Leaft Foods publishes no idempotency-key header or retry-safety guidance of its own. Any
+    idempotency semantics come from the upstream Universal Commerce Protocol specification at ucp.dev and
+    are not asserted here.
+pagination:
+  style: query-parameter (Shopify storefront JSON)
+  params:
+  - name: limit
+    description: Page size on storefront JSON endpoints. Verified 2026-07-19 — GET /products.json?limit=3
+      returned HTTP 200.
+  - name: page
+    description: Shopify storefront paging parameter.
+  note: Pagination for UCP catalog search is defined by the UCP catalog capability schema at
+    https://ucp.dev/2026-04-08/schemas/shopping/catalog_search.json, not by the merchant.
+buyer_context:
+  published: true
+  note: The store instructs agents to pass buyer context for accurate pricing and availability.
+  params:
+  - name: context.address_country
+    description: Buyer's shipping country, used for availability and pricing.
+  - name: context.currency
+    description: Currency the buyer transacts in.
+versioning:
+  scheme: dated protocol versions
+  current: '2026-04-08'
+  supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  negotiation: Version-specific merchant profiles are published under
+    /.well-known/ucp/{version}; the root /.well-known/ucp names the current version and links each
+    supported version.
+  cross_reference: lifecycle/leaftfoods-lifecycle.yml
+errors:
+  envelope: JSON-RPC 2.0 error object
+  shape:
+    jsonrpc: '2.0'
+    id: request id
+    error:
+      code: integer JSON-RPC / UCP error code
+      message: human-readable summary
+      data:
+        code: machine-readable UCP error slug
+        content: detail string
+        continue_url: URL a human can open to continue the flow
+  format: not rfc9457
+  cross_reference: errors/leaftfoods-problem-types.yml
+rate_limits:
+  published: true
+  policy: The MCP endpoint is rate-limited per IP.
+  signal: HTTP 429
+  guidance: Agents must back off on 429 responses.
+  headers_published: false
+  note: No RateLimit-* or Retry-After header contract is documented by the merchant.
+request_tracing:
+  published: false
+  note: No request-id or correlation-id header is documented.
+field_expansion:
+  published: false
+metadata:
+  published: false
+authorization_invariants:
+- Checkout must not be completed without explicit, contemporaneous buyer approval of payment.
+- Agents unable to obtain contemporaneous approval are directed to route the purchase through the Shop
+  skill (https://shop.app/SKILL.md) and Shop Pay instead.
+agent_discovery:
+  robots_txt: https://www.leaftfoods.com/robots.txt
+  agents_md: https://www.leaftfoods.com/agents.md
+  llms_txt: https://www.leaftfoods.com/llms.txt
+  sitemap: https://www.leaftfoods.com/sitemap_agentic_discovery.xml
+  note: robots.txt explicitly directs agents to use UCP/MCP for catalog, cart and checkout rather than
+    scraping, and restates the buyer-approval requirement.

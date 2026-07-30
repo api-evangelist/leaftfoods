@@ -1,0 +1,53 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.leaftfoods.com/api/ucp/mcp
+name: Leaft Foods Error Catalog
+description: Error semantics for the Leaft Foods UCP/MCP commerce endpoint. There is no OpenAPI definition
+  in this repo to derive a 4xx/5xx catalog from, and the provider publishes no error reference page, so
+  this catalog records only errors actually observed against the live endpoint plus the failure signals the
+  store documents in its own llms.txt.
+format: jsonrpc-2.0
+media_type: application/json
+envelope:
+  jsonrpc: '2.0'
+  id: echoed request id
+  error:
+    code: integer error code
+    message: human-readable summary
+    data:
+      code: machine-readable slug
+      content: detail string
+      continue_url: URL a human can open to continue the flow
+problem_types:
+- id: invalid_profile_url
+  code: -32001
+  http_status: 422
+  title: UCP discovery failed
+  detail: 'Unable to fetch agent profile: Missing profile uri'
+  method: searched
+  observed: '2026-07-19'
+  evidence: Returned by POST /api/ucp/mcp for an unauthenticated tools/list call that presented no agent
+    profile URI.
+  remediation: Publish a resolvable agent profile URI and present it during UCP discovery before calling
+    MCP methods.
+  continue_url: https://leaft-foods.myshopify.com/
+- id: rate_limited
+  http_status: 429
+  title: Too Many Requests
+  method: searched
+  observed: '2026-07-19'
+  evidence: Documented in llms.txt ("The MCP endpoint is rate-limited per IP. Back off on 429 responses.")
+    and observed on GET /pages/contact during probing.
+  remediation: Back off and retry with exponential delay. No Retry-After contract is published.
+- id: service_unavailable
+  http_status: 503
+  title: Service Unavailable
+  method: searched
+  observed: '2026-07-19'
+  evidence: Returned by GET /agents.md, which robots.txt and sitemap_agentic_discovery.xml both advertise
+    as the canonical agent-facing description of the store.
+  remediation: Fall back to /llms.txt, which the store states mirrors the same content.
+notes:
+- No application/problem+json (RFC 9457) responses are produced by this surface.
+- No published error-code reference exists on the Leaft Foods site; upstream codes are defined by the UCP
+  specification at https://ucp.dev/2026-04-08/specification/overview/.

@@ -1,0 +1,114 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.leaftfoods.com/.well-known/ucp
+name: Leaft Foods UCP MCP Server
+description: Leaft Foods runs a live, publicly addressable MCP server as part of its Shopify-native
+  Universal Commerce Protocol (UCP) implementation. Agents discover it from /.well-known/ucp and call it
+  over JSON-RPC to search the catalog, build a cart, and drive a checkout to completion. Payment completion
+  requires contemporaneous buyer approval.
+status: live
+transport: mcp
+endpoint: https://www.leaftfoods.com/api/ucp/mcp
+canonical_endpoint: https://leaft-foods.myshopify.com/api/ucp/mcp
+protocol: jsonrpc-2.0
+method_http: POST
+content_type: application/json
+discovery:
+  well_known: https://www.leaftfoods.com/.well-known/ucp
+  agent_instructions: https://www.leaftfoods.com/llms.txt
+  openrpc_schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  specification: https://ucp.dev/2026-04-08/specification/overview/
+versions:
+  latest: '2026-04-08'
+  supported:
+  - version: '2026-04-08'
+    profile: https://leaft-foods.myshopify.com/.well-known/ucp/2026-04-08
+  - version: '2026-01-23'
+    profile: https://leaft-foods.myshopify.com/.well-known/ucp/2026-01-23
+probe:
+  date: '2026-07-19'
+  request: 'POST /api/ucp/mcp {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  status: 422
+  response_code: -32001
+  response_message: UCP discovery failed
+  response_data_code: invalid_profile_url
+  note: The endpoint is live and returns a structured UCP JSON-RPC error. An unauthenticated tools/list is
+    rejected because the caller did not present an agent profile URI, so the tool schemas below are the
+    named tools documented in the store's own llms.txt plus the UCP capabilities declared in
+    /.well-known/ucp — not a captured tools/list response.
+tools:
+- name: search_catalog
+  method: searched
+  source: https://www.leaftfoods.com/llms.txt
+  capability: dev.ucp.shopping.catalog.search
+  description: Find products matching the buyer's intent.
+- name: create_cart
+  method: searched
+  source: https://www.leaftfoods.com/llms.txt
+  capability: dev.ucp.shopping.cart
+  description: Add desired items to a cart.
+- name: create_checkout
+  method: searched
+  source: https://www.leaftfoods.com/llms.txt
+  capability: dev.ucp.shopping.checkout
+  description: Start the purchase flow.
+- name: update_checkout
+  method: searched
+  source: https://www.leaftfoods.com/llms.txt
+  capability: dev.ucp.shopping.fulfillment
+  description: Set shipping address and shipping method.
+- name: complete_checkout
+  method: searched
+  source: https://www.leaftfoods.com/llms.txt
+  capability: dev.ucp.shopping.checkout
+  description: Finalize the purchase. Buyer must approve payment.
+capabilities:
+- id: dev.ucp.shopping.cart
+  version: '2026-04-08'
+- id: dev.ucp.shopping.checkout
+  version: '2026-04-08'
+- id: dev.ucp.shopping.fulfillment
+  version: '2026-04-08'
+  config:
+    allows_multi_destination_shipping: false
+    allows_method_combinations:
+    - - shipping
+- id: dev.ucp.shopping.discount
+  version: '2026-04-08'
+- id: dev.ucp.shopping.order
+  version: '2026-04-08'
+- id: dev.ucp.shopping.catalog.search
+  version: '2026-04-08'
+- id: dev.ucp.shopping.catalog.lookup
+  version: '2026-04-08'
+- id: dev.shopify.catalog
+  version: '2026-04-08'
+  spec: https://shopify.dev/docs/agents/catalog/storefront-catalog
+payment_handlers:
+- id: gpay
+  family: com.google.pay
+  version: '2026-01-11'
+  gateway: shopify
+  card_networks:
+  - VISA
+  - MASTERCARD
+  - AMEX
+  - DISCOVER
+- id: shopify.card
+  family: dev.shopify.card
+  version: '2026-01-15'
+  card_brands:
+  - visa
+  - master
+  - american_express
+  - discover
+  - diners_club
+rules:
+- Checkout requires explicit, contemporaneous human approval before payment is completed.
+- The MCP endpoint is rate-limited per IP; back off on 429 responses.
+- Pass context.address_country and context.currency for accurate pricing and availability.
+alternative:
+  name: Shop skill
+  url: https://shop.app/SKILL.md
+  note: The store recommends personal-shopping agents install the cross-store Shop skill and transact via
+    Shop Pay rather than scripting the storefront directly.

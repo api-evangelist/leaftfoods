@@ -1,0 +1,112 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.leaftfoods.com/
+name: Leaft Foods Well-Known Index
+description: Index of /.well-known/ and agent-discovery paths probed on the two Shopify-hosted Leaft Foods
+  storefronts — www.leaftfoods.com (corporate) and www.leaftblade.com (direct-to-consumer). Every entry
+  records the HTTP status actually observed on 2026-07-19. Absence (404) is recorded as valid data.
+host: www.leaftfoods.com
+hosts:
+- www.leaftfoods.com
+- www.leaftblade.com
+paths:
+- path: /.well-known/ucp
+  status: 200
+  content_type: application/json
+  file: leaftfoods-ucp.json
+  note: Universal Commerce Protocol merchant profile. Declares supported UCP versions 2026-04-08 and
+    2026-01-23, the dev.ucp.shopping service over MCP transport, capabilities (cart, checkout, fulfillment,
+    discount, order, catalog.search, catalog.lookup, dev.shopify.catalog) and payment handlers
+    (com.google.pay, dev.shopify.card).
+- path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json
+  file: leaftfoods-openid-configuration.json
+  note: OpenID Connect discovery for Shopify customer accounts. Issuer
+    https://shopify.com/authentication/95682920744.
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json
+  file: leaftfoods-oauth-authorization-server.json
+  note: RFC 8414 authorization server metadata, identical payload to the OIDC discovery document.
+- path: /.well-known/security.txt
+  status: 404
+  file: null
+  note: No RFC 9116 security.txt published on the storefront host.
+- path: /.well-known/api-catalog
+  status: 404
+  file: null
+  note: No RFC 9727 API catalog published.
+- path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+  note: No OpenAI plugin manifest published.
+- path: /llms.txt
+  status: 200
+  content_type: text/markdown
+  file: ../llms/leaftfoods-llms.txt
+  note: Real agent instruction file (not an SPA catch-all). Mirrors /agents.md.
+- path: /agents.md
+  status: 503
+  file: null
+  note: Listed in robots.txt and in sitemap_agentic_discovery.xml as the canonical agent-facing description,
+    but returned 503 to this probe. Content is mirrored by /llms.txt, which was captured.
+- path: /robots.txt
+  status: 200
+  file: null
+  note: Points agents at /agents.md, /.well-known/ucp and /api/ucp/mcp, and states payment requires buyer
+    approval.
+- path: /sitemap.xml
+  status: 200
+  file: null
+  note: Sitemap index including sitemap_agentic_discovery.xml, pages, collections and blogs.
+leaftblade_paths:
+- host: www.leaftblade.com
+  path: /.well-known/ucp
+  status: 200
+  content_type: application/json
+  file: leaftblade-ucp.json
+  note: UCP merchant profile for the Leaft Blade direct-to-consumer store (Shopify shop
+    leaft-lightgrove.myshopify.com). Same seven shopping capabilities as the corporate store plus a third
+    payment handler, dev.shopify.shop_pay.
+- host: www.leaftblade.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json
+  file: leaftblade-openid-configuration.json
+  note: OIDC discovery for Shopify customer accounts. Issuer
+    https://shopify.com/authentication/58286997615 — a different shop id from the corporate store.
+- host: www.leaftblade.com
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  file: null
+  note: RFC 8414 metadata, same payload as the OIDC discovery document. Not saved separately.
+- host: www.leaftblade.com
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+- host: www.leaftblade.com
+  path: /.well-known/api-catalog
+  status: 404
+  file: null
+- host: www.leaftblade.com
+  path: /agents.md
+  status: 200
+  content_type: text/markdown
+  file: ../llms/leaftblade-agents.md
+  note: Canonical agent-facing store description. Served successfully here, unlike the corporate host.
+    Differs from this store's /llms.txt.
+- host: www.leaftblade.com
+  path: /llms.txt
+  status: 200
+  content_type: text/markdown
+  file: ../llms/leaftblade-llms.txt
+- host: www.leaftblade.com
+  path: /robots.txt
+  status: 200
+  file: null
+- host: www.leaftblade.com
+  path: /products.json
+  status: 200
+  file: null
+  note: Live catalog — returned 2 Leaft Blade products on 2026-07-19.
