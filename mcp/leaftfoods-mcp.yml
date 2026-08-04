@@ -6,7 +6,8 @@ description: Leaft Foods runs a live, publicly addressable MCP server as part of
   Universal Commerce Protocol (UCP) implementation. Agents discover it from /.well-known/ucp and call it
   over JSON-RPC to search the catalog, build a cart, and drive a checkout to completion. Payment completion
   requires contemporaneous buyer approval.
-status: live
+status: published
+status_raw: live
 transport: mcp
 endpoint: https://www.leaftfoods.com/api/ucp/mcp
 canonical_endpoint: https://leaft-foods.myshopify.com/api/ucp/mcp
