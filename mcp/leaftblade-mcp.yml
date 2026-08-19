@@ -4,7 +4,8 @@ source: https://leaftblade.com/.well-known/ucp
 name: Leaft Blade UCP MCP Server
 description: The second live UCP MCP server operated by Leaft Foods, serving the direct-to-consumer Leaft
   Blade storefront at leaftblade.com (Shopify shop leaft-lightgrove.myshopify.com). Unlike the corporate
-  store it serves a live product catalog and advertises Shop Pay in addition to Google Pay and Shopify card.
+  store it serves a live product catalog and advertises Shop Pay in addition to Google Pay and Shopify
+  card.
 status: published
 status_raw: live
 transport: mcp
@@ -81,3 +82,9 @@ rules:
 - Checkout requires explicit, contemporaneous human approval before payment is completed.
 - The MCP endpoint is rate-limited per IP; back off on 429 responses.
 - Pass context.address_country and context.currency for accurate pricing and availability.
+deployment:
+  mode: unclear
+  verified: searched
+  tools: 5
+  checked: '2026-08-12'
+  source: catalog MCP census
