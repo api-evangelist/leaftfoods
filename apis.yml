@@ -98,6 +98,9 @@ apis:
     url: skills/_index.yml
   - type: Documentation
     url: https://www.leaftfoods.com/llms.txt
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 - aid: leaftfoods:leaftblade-ucp-commerce
   name: Leaft Blade Universal Commerce Protocol (UCP) API
   description: The agent-facing commerce API for leaftblade.com, the direct-to-consumer storefront for the
@@ -129,6 +132,9 @@ apis:
     url: https://www.leaftblade.com/policies/terms-of-service
   - type: PrivacyPolicy
     url: https://www.leaftblade.com/policies/privacy-policy
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
