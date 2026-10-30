@@ -1,4 +1,4 @@
-# Leaftfoods
+# Leaft Foods
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,6 +64,102 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Leaftfoods is a company surfaced as a portfolio company of khosla-ventures and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Leaft Foods is a New Zealand food-technology company, founded in 2019 by John Penno and Maury Leyland Penno and headquartered in Rolleston in the Selwyn district near Christchurch, that extracts Rubisco — the protein that drives photosynthesis and the most abundant protein on Earth — from green leafy crops such as lucerne. Its proprietary platform turns leaves into a neutral-tasting, highly digestible protein sold as the Leaft Blade consumer beverage, as a Rubisco protein isolate ingredient for food manufacturers, and as an Alfalfa Protein Concentrate for pet nutrition. The company raised a US$15M Series A led by Khosla Ventures. Its digital surface is a Shopify storefront that publishes a real agent-facing commerce API — a Universal Commerce Protocol (UCP) discovery document, an MCP endpoint for catalog, cart and checkout, an llms.txt / agents.md agent instruction set, and OpenID Connect discovery for customer accounts.
 
-Backed by: khosla-ventures — https://www.leaftfoods.com/
+**Areas:** Company · Food · AgTech · Alternative Protein · Ingredients · Pet Nutrition · Agentic Commerce · Universal Commerce Protocol · MCP · Shopify · New Zealand
+
+## Leaft Foods on APIs.io
+
+Everything profiled for Leaft Foods is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/leaftfoods/](https://apis.io/providers/leaftfoods/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Leaft Foods Universal Commerce Protocol (UCP) API](https://apis.io/apis/leaftfoods/ucp-commerce/) — The agent-facing commerce API for the Leaft Foods storefront. The store implements the Universal Commerce Protocol (ucp.dev) natively through Shopify,…
+- [Leaft Blade Universal Commerce Protocol (UCP) API](https://apis.io/apis/leaftfoods/leaftblade-ucp-commerce/) — The agent-facing commerce API for leaftblade.com, the direct-to-consumer storefront for the Leaft Blade protein beverage and a second Shopify shop operated…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (2)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Leaft Blade UCP MCP Server](https://apis.io/servers/leaftfoods/leaft-blade-ucp-mcp-server/)
+- [Leaft Foods UCP MCP Server](https://apis.io/servers/leaftfoods/leaft-foods-ucp-mcp-server/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Leaftfoods Authentication](https://apis.io/security/leaftfoods/leaftfoods-authentication/)
+- [Leaftfoods Domain Security](https://apis.io/security/leaftfoods/leaftfoods-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Leaftfoods Scopes](https://apis.io/scopes/leaftfoods/leaftfoods-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.leaftfoods.com/)
+- [Sign up](https://www.leaftfoods.com/account/login)
+- [Support](https://www.leaftfoods.com/pages/contact)
+- [Blog](https://www.leaftfoods.com/blogs/news)
+- [Privacy policy](https://www.leaftfoods.com/policies/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 25.2** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 34.2 |
+
+**Agent readiness 9.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/leaftfoods/](https://apis.io/providers/leaftfoods/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Leaft Foods: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/leaftfoods/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
